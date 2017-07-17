@@ -1,4 +1,4 @@
-FROM debian:9
+FROM debian:8
 EXPOSE 3000
 COPY ./artifact/rust-http-helloworld /
-ENTRYPOINT ["/rust-http-helloworld"]
+CMD ["/rust-http-helloworld", "--"]
