@@ -1,0 +1,48 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: rust-http-helloworld
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: rust-http-helloworld
+    spec:
+      containers:
+      - name: rust-http-helloworld
+        image: tyauvil/rust-http-helloworld:latest
+        ports:
+        - containerPort: 3000
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "200Mi"
+        readinessProbe:
+          tcpSocket:
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 15
+          periodSeconds: 5
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rust-http-helloworld
+  labels:
+    app: rust-http-helloworld
+spec:
+  type: NodePort
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 3000
+  selector:
+    app: rust-http-helloworld
