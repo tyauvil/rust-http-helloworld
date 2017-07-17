@@ -1,0 +1,8 @@
+[package]
+name = "rust-http-helloworld"
+version = "0.1.0"
+authors = ["Ty Auvil <ty.auvil@gmail.com>"]
+
+[dependencies]
+iron = "*"
+params = "*"

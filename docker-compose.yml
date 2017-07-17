@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  release:
+    build:
+      context: .
+      dockerfile: release.Dockerfile
+    volumes:
+      - ./artifact:/artifact
